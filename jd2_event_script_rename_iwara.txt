@@ -1,0 +1,16 @@
+//JD2イベントスクリプト：トリガー＝「パッケージャのフック時」に追加する
+
+if (linkcheckDone && link.getHost().match(/iwara.tv/)) {
+    var fname = link.getName();
+    log("ORIG=" + fname);
+
+    var newname = fname;
+    if (!fname.match(/\.mp4$|\.txt$|\.m4a$|\.jpg$|\.jpeg$|\.js$|\.json$|\.mkv$/)) {
+        newname = fname + ".mp4";
+    }
+    newname = newname.replace(/¿language=(ja|en|de|zh_hanz)/, '').replace(/¿playlist=\d+/, '');
+
+    newname = newname.replace(/^(.+)_([a-zA-Z0-9]{12,})_(.+)\.mp4$/g, '$1 - $3 ($2).mp4');
+    log("NEW =" + newname);
+    link.setName(newname);
+}
